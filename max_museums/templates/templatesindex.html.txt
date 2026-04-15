@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>МАХ.Музеи — Живая история Ставрополья</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-header">
+        <h1>🏛️ МАХ.Музеи</h1>
+        <div class="user-info">👤 <span id="userIdDisplay">гость</span></div>
+    </div>
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="map">🗺️ Карта</button>
+        <button class="tab-btn" data-tab="exhibits">🖼️ Экспонаты</button>
+        <button class="tab-btn" data-tab="events">📅 События</button>
+        <button class="tab-btn" data-tab="passport">🎓 Паспорт</button>
+        <button class="tab-btn" data-tab="news">📰 Новости</button>
+        <button class="tab-btn" data-tab="book">📝 Запись</button>
+        <button class="tab-btn admin-tab" data-tab="admin">🔧 Админ</button>
+    </div>
+    <div class="tab-content">
+        <div id="map-tab" class="tab-pane active">
+            <div id="map"></div>
+        </div>
+        <div id="exhibits-tab" class="tab-pane">
+            <div class="filter-bar">
+                <select id="museumFilterExhibits"><option value="all">Все музеи</option></select>
+            </div>
+            <div id="exhibits-list" class="card-list"></div>
+        </div>
+        <div id="events-tab" class="tab-pane">
+            <div id="events-list" class="card-list"></div>
+        </div>
+        <div id="passport-tab" class="tab-pane">
+            <div id="passport-info"></div>
+            <div id="quiz-modal" class="modal hidden">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Викторина</h3>
+                    <div id="quiz-questions"></div>
+                    <button id="submit-quiz">Отправить</button>
+                </div>
+            </div>
+        </div>
+        <div id="news-tab" class="tab-pane">
+            <div id="news-list" class="card-list"></div>
+        </div>
+        <div id="book-tab" class="tab-pane">
+            <form id="bookForm">
+                <select id="bookMuseum" required><option value="">Выберите музей</option></select>
+                <input type="text" id="visitorName" placeholder="Ваше имя" required>
+                <input type="tel" id="visitorPhone" placeholder="Телефон" required>
+                <input type="date" id="bookDate" required>
+                <input type="time" id="bookTime" required>
+                <input type="number" id="persons" placeholder="Количество человек" min="1" value="1" required>
+                <button type="submit">Отправить заявку</button>
+            </form>
+            <div id="bookMessage"></div>
+        </div>
+        <div id="admin-tab" class="tab-pane">
+            <div id="adminLogin" class="admin-login">
+                <input type="password" id="adminPassword" placeholder="Пароль сотрудника">
+                <button id="adminLoginBtn">Войти</button>
+            </div>
+            <div id="adminPanel" class="hidden">
+                <div class="admin-section">
+                    <h3>Музеи</h3>
+                    <button id="addMuseumBtn">➕ Добавить музей</button>
+                    <div id="museumsListAdmin"></div>
+                </div>
+                <div class="admin-section">
+                    <h3>Экспонаты</h3>
+                    <button id="addExhibitBtn">➕ Добавить экспонат</button>
+                    <div id="exhibitsListAdmin"></div>
+                </div>
+                <div class="admin-section">
+                    <h3>События</h3>
+                    <button id="addEventBtn">➕ Добавить событие</button>
+                    <div id="eventsListAdmin"></div>
+                </div>
+                <div class="admin-section">
+                    <h3>Вопросы викторины</h3>
+                    <button id="addQuestionBtn">➕ Добавить вопрос</button>
+                    <div id="questionsListAdmin"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
